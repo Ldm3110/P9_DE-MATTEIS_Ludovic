@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Connexion.urls')),
     path('home/', include('Flux.urls')),
-    path('subscribe/', include('Abonnements.urls')),
+    path('subscribe/', include("Abonnements.urls")),
 ]

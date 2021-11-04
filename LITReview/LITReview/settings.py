@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4gl+fi&^&er#pm+r2+9960yl5q3!*drjs+ra*2yv8g17ycu-rb'
+SECRET_KEY = 'django-insecure-x^nm6z2r8rmb6n6xi$1(z(un)1jhm$1#^4f@6+8@gbza-n7!jd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -59,7 +59,8 @@ ROOT_URLCONF = 'LITReview.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates']
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
