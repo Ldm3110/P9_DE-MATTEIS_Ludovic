@@ -1,0 +1,14 @@
+{% if user.is_authenticated %}
+    <div class="logo_site">
+        <h1><a href="{% url 'homepage' %}">LITReview</a></h1>
+    </div>
+
+    <div class="menu">
+        <li><a href="{% url 'homepage' %}">Flux</a></li>
+        <li><a href="{% url 'my-flux' %}">Mes Posts</a></li>
+        <li><a href="#">Abonnements</a></li>
+        <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+    </div>
+{% else %}
+    <h1>LITReview</h1>
+{% endif %}
