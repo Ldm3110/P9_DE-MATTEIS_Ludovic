@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block title %}
+    LITReview | Modifier un Ticket
+{% endblock %}
+
+{% block content %}
+
+    <h3>Modification d'un ticket</h3>
+
+    <form method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Modifier le ticket</button>
+    </form>
+    <form action="{% url 'my-flux' %}">
+        <button type="submit">Retour</button>
+    </form>
+
+{% endblock %}
