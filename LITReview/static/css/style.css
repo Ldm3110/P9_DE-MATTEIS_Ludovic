@@ -1,0 +1,50 @@
+/*
+WEBSITE TITLE SETTINGS
+ */
+h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+/*
+NAV-BAR SETTINGS
+ */
+.nav-bar {
+    list-style-type: none;
+    position: absolute;
+    display: flex;
+    top: 30px;
+    right: 10px;
+}
+
+.nav-bar li {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-bar a:hover {
+    font-style: italic;
+    font-weight: bold;
+    color: black;
+}
+
+.chip {
+    margin: 0 30px 0 30px;
+}
+
+/*
+RESIZE BOOK COVER
+ */
+.img_book {
+    max-width: 25%;
+    height: auto;
+}
+
+.creation {
+    font-style: italic;
+}
