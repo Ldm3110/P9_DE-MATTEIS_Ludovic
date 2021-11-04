@@ -16,7 +16,6 @@ def subscription_view(request):
         pseudo = request.POST['user']
         try:
             user = get_object_or_404(User, username=pseudo)
-            print(user)
             UserFollows.objects.create(
                 user=request.user,
                 followed_user=user
