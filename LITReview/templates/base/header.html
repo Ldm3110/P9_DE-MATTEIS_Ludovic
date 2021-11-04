@@ -6,7 +6,7 @@
     <div class="menu">
         <li><a href="{% url 'homepage' %}">Flux</a></li>
         <li><a href="{% url 'my-flux' %}">Mes Posts</a></li>
-        <li><a href="#">Abonnements</a></li>
+        <li><a href="{% url 'subscribe' %}">Abonnements</a></li>
         <li><a href="{% url 'logout' %}">Déconnexion</a></li>
     </div>
 {% else %}
