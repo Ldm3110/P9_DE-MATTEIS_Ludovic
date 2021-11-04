@@ -26,3 +26,4 @@ def create_ticket(request):
             return redirect('homepage')
 
     return render(request, 'flux/create_ticket.html', context={'form': form})
+
