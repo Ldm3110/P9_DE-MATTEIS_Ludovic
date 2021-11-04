@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    LITReview | Créer un ticket
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Créer le ticket</button>
+    </form>
+    <form action="{% url 'homepage' %}">
+        <button type="submit">Revenir à la page d'acceuil</button>
+    </form>
+{% endblock %}

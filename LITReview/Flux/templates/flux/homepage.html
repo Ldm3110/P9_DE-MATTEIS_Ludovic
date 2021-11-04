@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    LITReview | Accueil
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'create-ticket' %}">
+        <button type="submit">Créer un ticket</button>
+    </form>
+    <form action="#">
+        <button type="submit">Rédiger une critique</button>
+    </form>
+{% endblock %}
