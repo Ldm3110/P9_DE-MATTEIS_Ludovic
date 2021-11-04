@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 from Abonnements.forms import UserFollowsForm
@@ -12,23 +13,23 @@ def subscription_view(request):
     form = UserFollowsForm()
     followers = UserFollows.objects.filter(user_id=request.user)
     followed_by = UserFollows.objects.filter(followed_user_id=request.user)
+    message = ""
     if request.method == 'POST':
         pseudo = request.POST['user']
         try:
-            user = get_object_or_404(User, username=pseudo)
+            user = User.objects.get(username=pseudo)
             UserFollows.objects.create(
                 user=request.user,
                 followed_user=user
             )
         except User.DoesNotExist:
-            raise ValidationError(
-                "Cet utilisateur n'existe pas !"
-            )
+            message = "Cet utilisateur n'existe pas - Réessayez svp !"
 
     return render(request, 'subscription/subscribe_page.html', context={
         'form': form,
         'followers': followers,
-        'followed_by': followed_by
+        'followed_by': followed_by,
+        'message': message
     })
 
 

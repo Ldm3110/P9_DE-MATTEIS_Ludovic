@@ -9,6 +9,9 @@
     <h3>Suivre d'autres utilisateurs</h3>
 
     <form method="post">
+        {% if message %}
+            {{ message }}
+        {% endif %}
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit">S'abonner</button>
