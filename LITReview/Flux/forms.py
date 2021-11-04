@@ -10,4 +10,3 @@ class TicketForm(forms.ModelForm):
         labels = {
             'title': 'Titre'
         }
-
