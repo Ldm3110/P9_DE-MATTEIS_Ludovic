@@ -3,11 +3,11 @@
         <h1><a href="{% url 'homepage' %}">LITReview</a></h1>
     </div>
 
-    <div class="menu">
-        <li><a href="{% url 'homepage' %}">Flux</a></li>
-        <li><a href="{% url 'my-flux' %}">Mes Posts</a></li>
-        <li><a href="{% url 'subscribe' %}">Abonnements</a></li>
-        <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+    <div class="nav-bar">
+        <li class="chip"><a href="{% url 'homepage' %}">Flux</a></li>
+        <li class="chip"><a href="{% url 'my-flux' %}">Mes Posts</a></li>
+        <li class="chip"><a href="{% url 'subscribe' %}">Abonnements</a></li>
+        <li class="chip"><a href="{% url 'logout' %}">Déconnexion</a></li>
     </div>
 {% else %}
     <h1>LITReview</h1>
