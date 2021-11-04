@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    LITReview | Créer un compte
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Créer un compte</button>
+    </form>
+    <form action="{% url 'login' %}">
+        <button type="submit">Retour à la page d'accueil</button>
+    </form>
+{% endblock %}
