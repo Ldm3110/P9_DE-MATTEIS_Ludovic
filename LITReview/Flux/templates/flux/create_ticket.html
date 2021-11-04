@@ -1,16 +1,22 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 
 {% block title %}
     LITReview | Créer un ticket
 {% endblock %}
 
 {% block content %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit">Créer le ticket</button>
     </form>
     <form action="{% url 'homepage' %}">
-        <button type="submit">Revenir à la page d'acceuil</button>
+        <button type="submit">Retour</button>
     </form>
 {% endblock %}

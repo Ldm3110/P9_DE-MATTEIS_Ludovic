@@ -1,9 +1,37 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 
 {% block title %}
     LITReview | Mon Flux
 {% endblock %}
 
 {% block content %}
-    <h3>Mes Posts</h3>
+
+    <h2>Mes Posts</h2>
+
+    {% for ticket in tickets %}
+
+        <div class="ticket">
+            <h3>{{ ticket.title }}</h3>
+            <p class="creation">Publié le {{ ticket.time_created|date:"j F Y" }} à {{ ticket.time_created|date:"H:i:s" }}</p>
+            <p>{{ ticket.description }}</p>
+            {% if ticket.image %}
+                <img class="img_book" src="{{ ticket.image.url }}" alt="Couverture de {{ ticket.title }}">
+            {% endif %}
+
+            <form action="{% url 'modify-ticket' ticket.id %}">
+                <button type="submit">Modifier</button>
+            </form>
+            <form action="{% url 'delete-ticket' ticket.id %}">
+                <button type="submit">Supprimer</button>
+            </form>
+        </div>
+    {% endfor %}
+
+
 {% endblock %}
