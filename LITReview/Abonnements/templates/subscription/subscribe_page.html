@@ -1,4 +1,10 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 
 {% block title %}
     LITReview | S'abonner
