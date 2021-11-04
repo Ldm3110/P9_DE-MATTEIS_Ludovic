@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    LITReview | S'abonner
+{% endblock %}
+
+{% block content %}
+
+    <h3>Suivre d'autres utilisateurs</h3>
+
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">S'abonner</button>
+    </form>
+
+    <div class="followed_users">
+        <h3>Abonnements :</h3>
+        {% if not followers %}
+            <p>Vous n'êtes abonnés à aucun utilisateur</p>
+        {% else %}
+            {% for sub in followers %}
+                <p>{{ sub.followed_user }}</p>
+                <form action="{% url 'delete-subscription' sub.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Se désabonner</button>
+                </form>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="followed_by">
+        <h3>Abonnés :</h3>
+        {% if not followed_by %}
+            <p>Vous n'êtes suivis par aucun utilisateur</p>
+        {% else %}
+            {% for sub in followed_by %}
+                {% if sub.followed_user_id == user.id %}
+                    <p>{{ sub.user }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
