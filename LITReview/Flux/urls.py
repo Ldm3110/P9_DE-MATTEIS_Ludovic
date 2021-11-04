@@ -5,5 +5,7 @@ from Flux import views
 urlpatterns = [
     path('', views.homepage_view, name='homepage'),
     path('my_flux/', views.my_flux_view, name='my-flux'),
-    path('create_ticket/', views.create_ticket, name='create-ticket')
+    path('create_ticket/', views.create_ticket, name='create-ticket'),
+    path('modify_ticket/<int:ticket_id>', views.modify_ticket, name='modify-ticket'),
+    path('delete_ticket/<int:ticket_id>', views.delete_ticket, name='delete-ticket')
 ]
