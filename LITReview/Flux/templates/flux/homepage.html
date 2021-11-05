@@ -16,4 +16,12 @@
     <form action="#">
         <button type="submit">Rédiger une critique</button>
     </form>
+
+    {% for ticket in tickets %}
+        {% if ticket.content_type == 'TICKET' %}
+            {% include 'flux/ticket_snippet.html' %}
+        {% elif ticket.content_type == 'REVIEW' %}
+            {% include 'flux/review_snippet.html' %}
+        {% endif %}
+    {% endfor %}
 {% endblock %}
