@@ -1,6 +1,7 @@
 /*
 WEBSITE TITLE SETTINGS
  */
+
 h1 a {
     text-decoration: none;
     color: black;
@@ -9,6 +10,7 @@ h1 a {
 /*
 NAV-BAR SETTINGS
  */
+
 .nav-bar {
     list-style-type: none;
     position: absolute;
@@ -40,6 +42,7 @@ NAV-BAR SETTINGS
 /*
 RESIZE BOOK COVER
  */
+
 .img_book {
     max-width: 25%;
     height: auto;
@@ -47,4 +50,12 @@ RESIZE BOOK COVER
 
 .creation {
     font-style: italic;
+}
+
+.description {
+    text-decoration: underline;
+}
+
+.title {
+    font-size: 100%;
 }
