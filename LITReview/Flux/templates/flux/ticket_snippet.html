@@ -1,0 +1,24 @@
+<div class="ticket">
+
+    <p class="creation">Publié le {{ ticket.time_created|date:"j F Y" }} à {{ ticket.time_created|date:"H:i:s" }}</p>
+
+    {% if ticket.user == user %}
+        <p>Vous avez demandé une critique pour le livre suivant : </p>
+    {% else %}
+        <p>{{ ticket.user }} souhaiterait une critique pour le livre suivant : </p>
+    {% endif %}
+
+    <h3 class="book-title">{{ ticket.title }}</h3>
+    <p class="description">Description :</p>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img class="img_book" src="{{ ticket.image.url }}" alt="Couverture de {{ ticket.title }}">
+    {% endif %}
+
+    {% if ticket.user != user %}
+        <form action="{% url 'create-review' ticket.id %}">
+            <button type="submit">Créer une critique</button>
+        </form>
+    {% endif %}
+
+</div>

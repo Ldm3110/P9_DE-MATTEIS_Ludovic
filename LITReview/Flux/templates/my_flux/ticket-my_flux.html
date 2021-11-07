@@ -1,0 +1,19 @@
+<div class="ticket">
+
+    <p class="creation">Le {{ ticket.time_created|date:"j F Y" }} à {{ ticket.time_created|date:"H:i:s" }}</p>
+    <p>Vous avez publié un ticket</p>
+
+    <h3>{{ ticket.title }}</h3>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img class="img_book" src="{{ ticket.image.url }}" alt="Couverture de {{ ticket.title }}">
+    {% endif %}
+
+    <form action="{% url 'modify-ticket' ticket.id %}">
+        <button type="submit">Modifier</button>
+    </form>
+    <form action="{% url 'delete-ticket' ticket.id %}">
+        <button type="submit">Supprimer</button>
+    </form>
+
+</div>

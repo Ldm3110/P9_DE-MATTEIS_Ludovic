@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block title %}
+    LITReview | Mon Flux
+{% endblock %}
+
+{% block content %}
+
+    <h2>Mes Posts</h2>
+
+    {% for ticket in tickets %}
+        {% if ticket.content_type == 'TICKET' %}
+            {% include 'my_flux/ticket-my_flux.html' %}
+        {% elif ticket.content_type == 'REVIEW' %}
+            {% include 'my_flux/review-my_flux.html' %}
+        {% endif %}
+    {% endfor %}
+
+
+{% endblock %}

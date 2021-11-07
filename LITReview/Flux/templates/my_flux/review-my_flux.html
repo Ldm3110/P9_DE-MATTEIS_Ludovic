@@ -1,0 +1,17 @@
+<div class="review">
+
+    <p class="creation">Le {{ ticket.time_created|date:"j F Y" }} à {{ ticket.time_created|date:"H:i:s" }}</p>
+    <p>Vous avez publié une critique</p>
+
+    <h3>{{ ticket.headline }}</h3>
+    <p>A obtenu la note de <strong>{{ ticket.rating }}</strong> sur 5</p>
+    <p>{{ ticket.body }}</p>
+
+    <form action="#">
+        <button type="submit">Modifier</button>
+    </form>
+    <form action="{% url 'delete-ticket' ticket.id %}">
+        <button type="submit">Supprimer</button>
+    </form>
+
+</div>
