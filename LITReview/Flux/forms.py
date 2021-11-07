@@ -1,5 +1,4 @@
 from django import forms
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 from Flux.models import Ticket, Review
 
@@ -21,7 +20,16 @@ class TicketForm(forms.ModelForm):
         }
 
 
-class ReviewForm(forms.Form):
-    headline = forms.CharField(max_length=128, label="Titre")
-    rating = forms.ChoiceField(widget=forms.RadioSelect, choices=RATING_CHOICE, label="Note")
-    body = forms.CharField(max_length=8192, label="Commentaires", widget=forms.Textarea)
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['headline', 'rating', 'body']
+        labels = {
+            'headline': 'Titre',
+            'rating': 'Note',
+            'body': 'Commentaires'
+        }
+        widgets = {
+            'rating': forms.RadioSelect(choices=RATING_CHOICE),
+            'body': forms.Textarea
+        }
