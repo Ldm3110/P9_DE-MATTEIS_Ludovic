@@ -7,5 +7,6 @@ urlpatterns = [
     path('my_flux/', views.my_flux_view, name='my-flux'),
     path('create_ticket/', views.create_ticket, name='create-ticket'),
     path('modify_ticket/<int:ticket_id>', views.modify_ticket, name='modify-ticket'),
-    path('delete_ticket/<int:ticket_id>', views.delete_ticket, name='delete-ticket')
+    path('delete_ticket/<int:ticket_id>', views.delete_ticket, name='delete-ticket'),
+    path('create_review/<int:ticket_id>', views.create_review, name='create-review')
 ]
