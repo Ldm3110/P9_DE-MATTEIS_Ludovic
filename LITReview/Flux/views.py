@@ -50,7 +50,7 @@ def create_ticket(request):
             ticket.save()
             return redirect('homepage')
 
-    return render(request, 'flux/create_ticket.html', context={'form': form})
+    return render(request, 'creation/create_ticket.html', context={'form': form})
 
 
 @login_required
@@ -63,7 +63,7 @@ def modify_ticket(request, ticket_id):
             edit_ticket.save()
             return redirect('my-flux')
 
-    return render(request, 'flux/modify_ticket.html', context={'form': edit_ticket})
+    return render(request, 'creation/modify_ticket.html', context={'form': edit_ticket})
 
 
 @login_required
@@ -73,7 +73,7 @@ def delete_ticket(request, ticket_id):
     ticket.delete()
     message = f"Le ticket '{ticket.title}' a bien été supprimé"
 
-    return render(request, 'flux/templates/my_flux/my_flux.html', context={'message': message})
+    return render(request, 'my_flux/my_flux.html', context={'message': message})
 
 
 @login_required
@@ -95,7 +95,7 @@ def create_review(request, ticket_id):
             )
             return redirect('my-flux')
 
-    return render(request, 'flux/create_review.html', context={'form': form})
+    return render(request, 'creation/create_review.html', context={'form': form})
 
 
 @login_required
