@@ -8,6 +8,10 @@ from Abonnements.models import UserFollows
 from Flux import forms
 from Flux.models import Ticket, Review
 
+"""
+BASIC VIEWS
+"""
+
 
 @login_required
 def homepage_view(request):
@@ -36,7 +40,12 @@ def my_flux_view(request):
                      reverse=True
                      )
 
-    return render(request, 'my_flux/my_flux.html', context={'tickets': my_flux})
+    return render(request, 'my_flux/my_flux.html', context={'my_flux': my_flux})
+
+
+"""
+TICKET
+"""
 
 
 @login_required
@@ -69,11 +78,17 @@ def modify_ticket(request, ticket_id):
 @login_required
 def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-    ticket.image.delete()
-    ticket.delete()
-    message = f"Le ticket '{ticket.title}' a bien été supprimé"
+    if request.method == 'POST':
+        ticket.image.delete()
+        ticket.delete()
+        return redirect('my-flux')
 
-    return render(request, 'my_flux/my_flux.html', context={'message': message})
+    return render(request, 'my_flux/my_flux.html')
+
+
+"""
+REVIEW
+"""
 
 
 @login_required
@@ -99,13 +114,38 @@ def create_review(request, ticket_id):
 
 
 @login_required
-def modify_review(request):
-    pass
+def modify_review(request, review_id):
+    this_review = get_object_or_404(Review, id=review_id)
+    affected_ticket = get_object_or_404(Ticket, id=this_review.ticket_id)
+    review_form = forms.ReviewForm(instance=this_review)
+    if request.method == 'POST':
+        review_form = forms.ReviewForm(request.POST, instance=this_review)
+        if review_form.is_valid():
+            review_form.save()
+            return redirect('my-flux')
+
+    context = {
+        'rev': this_review,
+        'ticket': affected_ticket,
+        'form': review_form
+    }
+
+    return render(request, 'creation/modify_review.html', context)
 
 
 @login_required
-def delete_review(request):
-    pass
+def delete_review(request, review_id):
+    review_to_delete = get_object_or_404(Review, id=review_id)
+    if request.method == 'POST':
+        review_to_delete.delete()
+        return redirect('my-flux')
+
+    return render(request, 'my_flux/my_flux.html')
+
+
+"""
+UTILITIES
+"""
 
 
 def get_users_viewable_reviews(request, user):
