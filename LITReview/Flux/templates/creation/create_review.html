@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    LITReview | Rédiger une critique
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Soumettre la critique</button>
+    </form>
+
+{% endblock %}
