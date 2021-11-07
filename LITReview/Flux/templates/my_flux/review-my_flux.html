@@ -1,16 +1,17 @@
 <div class="review">
 
-    <p class="creation">Le {{ ticket.time_created|date:"j F Y" }} à {{ ticket.time_created|date:"H:i:s" }}</p>
+    <p class="creation">Le {{ article.time_created|date:"j F Y" }} à {{ article.time_created|date:"H:i:s" }}</p>
     <p>Vous avez publié une critique</p>
 
-    <h3>{{ ticket.headline }}</h3>
-    <p>A obtenu la note de <strong>{{ ticket.rating }}</strong> sur 5</p>
-    <p>{{ ticket.body }}</p>
+    <h3>{{ article.headline }}</h3>
+    <p>A obtenu la note de <strong>{{ article.rating }}</strong> sur 5</p>
+    <p>{{ article.body }}</p>
 
-    <form action="#">
+    <form action="{% url 'modify-review' article.id %}">
         <button type="submit">Modifier</button>
     </form>
-    <form action="{% url 'delete-ticket' ticket.id %}">
+    <form action="{% url 'delete-review' article.id %}" method="post">
+        {% csrf_token %}
         <button type="submit">Supprimer</button>
     </form>
 

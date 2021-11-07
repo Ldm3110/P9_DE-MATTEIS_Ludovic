@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block title %}
+    LITReview | Modifier une Critique
+{% endblock %}
+
+{% block content %}
+    <h3>Modification d'une critique</h3>
+
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Modifier le ticket</button>
+    </form>
+
+    <h4 class="ref-modif-rev">Cette critique fait au référence au ticket suivant :</h4>
+
+    <h3 class="book-title">{{ ticket.title }}</h3>
+    <p class="description">Description :</p>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img class="img_book" src="{{ ticket.image.url }}" alt="Couverture de {{ ticket.title }}">
+    {% endif %}
+
+{% endblock %}
