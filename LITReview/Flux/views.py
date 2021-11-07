@@ -27,14 +27,16 @@ def homepage_view(request):
 @login_required
 def my_flux_view(request):
     my_ticket = Ticket.objects.filter(user=request.user)
+    my_ticket = my_ticket.annotate(content_type=Value('TICKET', CharField()))
     my_review = Review.objects.filter(user=request.user)
+    my_review = my_review.annotate(content_type=Value('REVIEW', CharField()))
 
     my_flux = sorted(chain(my_ticket, my_review),
                      key=lambda post: post.time_created,
                      reverse=True
                      )
 
-    return render(request, 'flux/my_flux.html', context={'tickets': my_flux})
+    return render(request, 'my_flux/my_flux.html', context={'tickets': my_flux})
 
 
 @login_required
@@ -71,12 +73,29 @@ def delete_ticket(request, ticket_id):
     ticket.delete()
     message = f"Le ticket '{ticket.title}' a bien été supprimé"
 
-    return render(request, 'flux/my_flux.html', context={'message': message})
+    return render(request, 'flux/templates/my_flux/my_flux.html', context={'message': message})
 
 
 @login_required
-def create_review(request):
-    pass
+def create_review(request, ticket_id):
+    form = forms.ReviewForm()
+    if request.method == 'POST':
+        form = forms.ReviewForm(request.POST)
+        if form.is_valid():
+            headline = form.cleaned_data['headline']
+            rating = form.cleaned_data['rating']
+            body = form.cleaned_data['body']
+
+            Review.objects.create(
+                user_id=request.user.id,
+                ticket_id=ticket_id,
+                headline=headline,
+                rating=rating,
+                body=body
+            )
+            return redirect('my-flux')
+
+    return render(request, 'flux/create_review.html', context={'form': form})
 
 
 @login_required
