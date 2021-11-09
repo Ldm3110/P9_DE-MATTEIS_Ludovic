@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404, redirect
 
 from Abonnements.forms import UserFollowsForm
@@ -14,21 +15,28 @@ def subscription_view(request):
     message = ""
     if request.method == 'POST':
         pseudo = request.POST['user']
-        try:
-            user = User.objects.get(username=pseudo)
-            UserFollows.objects.create(
-                user=request.user,
-                followed_user=user
-            )
-        except User.DoesNotExist:
-            message = "Cet utilisateur n'existe pas - Réessayez svp !"
+        if pseudo == request.user.username:
+            message = "Vous ne pouvez pas vous abonner à vous-même !"
+        else:
+            try:
+                user = User.objects.get(username=pseudo)
+                UserFollows.objects.create(
+                    user=request.user,
+                    followed_user=user
+                )
+            except User.DoesNotExist:
+                message = "Cet utilisateur n'existe pas - Réessayez svp !"
+            except IntegrityError:
+                message = "Vous êtes déjà abonné à cette personne !"
 
-    return render(request, 'subscription/subscribe_page.html', context={
+    context = {
         'form': form,
         'followers': followers,
         'followed_by': followed_by,
         'message': message
-    })
+    }
+
+    return render(request, 'subscription/subscribe_page.html', context)
 
 
 @login_required
