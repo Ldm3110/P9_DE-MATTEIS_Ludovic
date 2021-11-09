@@ -1,1 +1,15 @@
-<h2>VIDE</h2>
+<div class="review">
+
+     <p class="creation">Publié le {{ ticket.time_created|date:"j F Y" }} à {{ ticket.time_created|date:"H:i:s" }}</p>
+
+    {% if ticket.user == user %}
+        <p>Vous avez rédigé une critique</p>
+    {% else %}
+        <p><strong>{{ ticket.user }}</strong> a rédigé une critique : </p>
+    {% endif %}
+
+    <h3>{{ ticket.headline }}</h3>
+    <p>A obtenu la note de <strong>{{ ticket.rating }}</strong> sur 5</p>
+    <p>{{ ticket.body }}</p>
+
+</div>

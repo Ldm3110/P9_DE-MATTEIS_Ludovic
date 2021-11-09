@@ -18,6 +18,9 @@
         {% csrf_token %}
         <button type="submit">Modifier le ticket</button>
     </form>
+    <form action="{% url 'my-flux' %}">
+        <button type="submit">Retour</button>
+    </form>
 
     <h4 class="ref-modif-rev">Cette critique fait au référence au ticket suivant :</h4>
 

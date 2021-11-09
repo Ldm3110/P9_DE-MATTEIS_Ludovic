@@ -4,6 +4,7 @@
     <p>Vous avez publié un ticket</p>
 
     <h3>{{ article.title }}</h3>
+    <p class="description">Description :</p>
     <p>{{ article.description }}</p>
     {% if article.image %}
         <img class="img_book" src="{{ article.image.url }}" alt="Couverture de {{ article.title }}">
@@ -12,7 +13,8 @@
     <form action="{% url 'modify-ticket' article.id %}">
         <button type="submit">Modifier</button>
     </form>
-    <form action="{% url 'delete-ticket' article.id %}">
+    <form action="{% url 'delete-ticket' article.id %}" method="post">
+        {% csrf_token %}
         <button type="submit">Supprimer</button>
     </form>
 

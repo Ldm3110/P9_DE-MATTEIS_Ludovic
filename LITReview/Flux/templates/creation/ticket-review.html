@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block linkCSS %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+{% block title %}
+    LITReview | Créer un Ticket-Critique
+{% endblock %}
+
+{% block content %}
+
+    <form method="post" enctype="multipart/form-data">
+        <h3>1. Créer le ticket</h3>
+        {{ ticket.as_p }}
+        <h3>2. Lui joindre sa critique</h3>
+        {{ review.as_p }}
+        {% csrf_token %}
+        <button type="submit">Créer le Ticket-Critique</button>
+    </form>
+
+    <form action="{% url 'homepage' %}">
+        <button type="submit">Retour</button>
+    </form>
+
+{% endblock %}

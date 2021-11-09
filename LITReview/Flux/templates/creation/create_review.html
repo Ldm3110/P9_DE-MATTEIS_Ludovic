@@ -16,4 +16,13 @@
         <button type="submit">Soumettre la critique</button>
     </form>
 
+    <h4 class="ref-modif-rev">Cette critique fait au référence au ticket suivant :</h4>
+
+    <h3 class="book-title">{{ ticket.title }}</h3>
+    <p class="description">Description :</p>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img class="img_book" src="{{ ticket.image.url }}" alt="Couverture de {{ ticket.title }}">
+    {% endif %}
+
 {% endblock %}

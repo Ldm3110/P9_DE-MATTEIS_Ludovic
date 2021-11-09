@@ -13,15 +13,17 @@
     <form action="{% url 'create-ticket' %}">
         <button type="submit">Créer un ticket</button>
     </form>
-    <form action="#">
-        <button type="submit">Rédiger une critique</button>
+    <form action="{% url 'ticket-review' %}">
+        <button type="submit">Rédiger un ticket-critique</button>
     </form>
 
     {% for ticket in tickets %}
         {% if ticket.content_type == 'TICKET' %}
             {% include 'flux/ticket_snippet.html' %}
+            <hr>
         {% elif ticket.content_type == 'REVIEW' %}
             {% include 'flux/review_snippet.html' %}
+            <hr>
         {% endif %}
     {% endfor %}
 {% endblock %}

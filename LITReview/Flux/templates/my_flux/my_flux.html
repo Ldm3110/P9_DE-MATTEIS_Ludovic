@@ -21,8 +21,10 @@
     {% for article in my_flux %}
         {% if article.content_type == 'TICKET' %}
             {% include 'my_flux/ticket-my_flux.html' %}
+            <hr>
         {% elif article.content_type == 'REVIEW' %}
             {% include 'my_flux/review-my_flux.html' %}
+            <hr>
         {% endif %}
     {% endfor %}
 
