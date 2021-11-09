@@ -185,14 +185,21 @@ UTILITIES
 
 
 def get_users_viewable_reviews(request, user):
-    reviews = Review.objects.filter(id=user.id)
+    tickets = Ticket.objects.filter(user=user)
+    reviews = Review.objects.filter(
+        Q(user=user) |
+        Q(ticket__in=[ticket.id for ticket in tickets])
+    )
+    print(reviews)
 
     return reviews
 
 
 def get_users_viewable_tickets(request, user):
     followed_by = UserFollows.objects.filter(user=user)
-    tickets = Ticket.objects.filter(Q(user=user) |
-                                    Q(user__in=[user.followed_user for user in followed_by]))
+    tickets = Ticket.objects.filter(
+        Q(user=user) |
+        Q(user__in=[user.followed_user for user in followed_by])
+    )
 
     return tickets
