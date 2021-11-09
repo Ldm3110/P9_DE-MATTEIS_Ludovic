@@ -144,6 +144,42 @@ def delete_review(request, review_id):
 
 
 """
+TICKET AND REVIEW IN THE SAME TIME
+"""
+
+
+def ticket_and_review(request):
+    ticket_form = forms.TicketForm()
+    review_form = forms.ReviewForm()
+    context = {
+        'ticket': ticket_form,
+        'review': review_form
+    }
+    if request.method == 'POST':
+        ticket_form = forms.TicketForm(request.POST, request.FILES)
+        review_form = forms.ReviewForm(request.POST)
+        if all([ticket_form.is_valid(), review_form.is_valid()]):
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+
+            headline = review_form.cleaned_data['headline']
+            rating = review_form.cleaned_data['rating']
+            body = review_form.cleaned_data['body']
+
+            Review.objects.create(
+                user_id=request.user.id,
+                ticket_id=ticket.id,
+                headline=headline,
+                rating=rating,
+                body=body
+            )
+            return redirect('homepage')
+
+    return render(request, 'creation/ticket-review.html', context)
+
+
+"""
 UTILITIES
 """
 
