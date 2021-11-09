@@ -27,6 +27,7 @@ def login_view(request):
 
 
 def registration_view(request):
+    message = ""
     register_form = forms.RegistrationForm()
     if request.method == 'POST':
         register_form = forms.RegistrationForm(request.POST)
@@ -39,11 +40,14 @@ def registration_view(request):
                     username=username,
                     password=make_password(password, 'salt', 'default')
                 )
-            return redirect('login')
+                return redirect('login')
+            else:
+                message = "L'utilisateur existe déjà !"
 
-    return render(request, 'connexion/register.html', context={'form': register_form})
+    return render(request, 'connexion/register.html', context={'form': register_form, 'mess': message})
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('login')
