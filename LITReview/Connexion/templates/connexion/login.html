@@ -6,6 +6,10 @@
 
 {% block content %}
     <h3>Déjà inscrit ? Connectez-vous !</h3>
+
+    {% if mess %}
+        <p>{{ mess }}</p>
+    {% endif %}
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}

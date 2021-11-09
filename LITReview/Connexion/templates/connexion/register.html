@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+    {% if mess %}
+        <p>{{ mess }}</p>
+    {% endif %}
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
