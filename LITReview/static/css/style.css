@@ -59,3 +59,15 @@ RESIZE BOOK COVER
 .title {
     font-size: 100%;
 }
+
+/*
+OTHER
+ */
+
+#id_rating li {
+    display: inline-block;
+}
+
+#id_rating input {
+    margin: 0 20px 0 20px;
+}
