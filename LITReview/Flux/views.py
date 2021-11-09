@@ -1,10 +1,11 @@
 from itertools import chain
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Value, CharField, Q
+from django.db.models import Value, CharField, Q, Count
 from django.shortcuts import render, redirect, get_object_or_404
 
 from Abonnements.models import UserFollows
+from Connexion.models import User
 from Flux import forms
 from Flux.models import Ticket, Review
 
@@ -17,14 +18,20 @@ BASIC VIEWS
 def homepage_view(request):
     user_tickets = get_users_viewable_tickets(request, request.user)
     user_tickets = user_tickets.annotate(content_type=Value('TICKET', CharField()))
+    user_tickets = user_tickets.annotate(num_reviews=Count('review'))
+
+    user_reviews = get_users_viewable_reviews(request, request.user)
+    user_reviews = user_reviews.annotate(content_type=Value('REVIEW', CharField()))
 
     tickets = sorted(
-        user_tickets,
+        chain(user_tickets, user_reviews),
         key=lambda post: post.time_created,
         reverse=True
     )
 
-    context = {'tickets': tickets}
+    context = {'tickets': tickets,
+               'user_reviews': user_reviews}
+
     return render(request, 'flux/homepage.html', context)
 
 
@@ -65,10 +72,13 @@ def create_ticket(request):
 @login_required
 def modify_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
+    image = ticket.image
     edit_ticket = forms.TicketForm(instance=ticket)
     if request.method == 'POST':
         edit_ticket = forms.TicketForm(request.POST, request.FILES, instance=ticket)
         if edit_ticket.is_valid():
+            if not ticket.image:
+                image.delete()
             edit_ticket.save()
             return redirect('my-flux')
 
@@ -93,6 +103,7 @@ REVIEW
 
 @login_required
 def create_review(request, ticket_id):
+    affected_ticket = get_object_or_404(Ticket, id=ticket_id)
     form = forms.ReviewForm()
     if request.method == 'POST':
         form = forms.ReviewForm(request.POST)
@@ -108,9 +119,9 @@ def create_review(request, ticket_id):
                 rating=rating,
                 body=body
             )
-            return redirect('my-flux')
+            return redirect('homepage')
 
-    return render(request, 'creation/create_review.html', context={'form': form})
+    return render(request, 'creation/create_review.html', context={'form': form, 'ticket': affected_ticket})
 
 
 @login_required
