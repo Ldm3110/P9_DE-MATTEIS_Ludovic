@@ -40,7 +40,8 @@ def registration_view(request):
                     username=username,
                     password=make_password(password, 'salt', 'default')
                 )
-                return redirect('login')
+                login(request, user)
+                return redirect('homepage')
             else:
                 message = "L'utilisateur existe déjà !"
 
